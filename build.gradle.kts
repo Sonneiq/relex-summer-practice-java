@@ -18,6 +18,10 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+	implementation("org.apache.commons:commons-csv:1.9.0")
+	implementation("com.opencsv:opencsv:5.6")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

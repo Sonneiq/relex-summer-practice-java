@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all messages</title>
+</head>
+<body>
+<form th:method="GET" th:action="@{/message/create}">
+    <input type="submit" value="Создать новое сообщение">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/message/delete}">
+    <input type="submit" value="Очистить сообщения">
+</form>
+<h3>Сообщения:</h3>
+<div th:each="message : ${messages}">
+    <a th:href="@{/message/{header}(header=${message.getHeader()})}"
+       th:text="${message.getHeader()}">Header</a>
+</div>
+<hr/>
+<form th:method="GET" th:action="@{/message/export}">
+    <input type="submit" value="Скачать CSV">
+</form>
+
+</body>
+</html>

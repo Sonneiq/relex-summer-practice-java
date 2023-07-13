@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create new message</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/message}" th:object="${newMessage}">
+    <a style="color: darkred">Поля не должны быть пустыми</a>
+    <br/>
+    <br/>
+    <label for="header">Заголовок:</label>
+    <input type="text" th:field="*{header}" id="header"/>
+    <br/>
+    <br/>
+    <textarea th:field="*{msg}" rows="10" cols="30" placeholder="Текст сообщения"/>
+    <br/>
+    <input type="reset" value="Очистить"/>
+    <a href="/message">вернуться на главную</a>
+    <hr/>
+    <input type="submit" value="Создать"/>
+</form>
+
+</body>
+</html>
