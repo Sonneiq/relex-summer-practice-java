@@ -6,14 +6,11 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/message}" th:object="${newMessage}">
-    <a style="color: darkred">Поля не должны быть пустыми</a>
-    <br/>
-    <br/>
     <label for="header">Заголовок:</label>
-    <input type="text" th:field="*{header}" id="header"/>
+    <input type="text" th:field="*{header}" id="header" required/>
     <br/>
     <br/>
-    <textarea th:field="*{msg}" rows="10" cols="30" placeholder="Текст сообщения"/>
+    <textarea th:field="*{msg}" rows="10" cols="30" placeholder="Текст сообщения" required>msg</textarea>
     <br/>
     <input type="reset" value="Очистить"/>
     <a href="/message">вернуться на главную</a>

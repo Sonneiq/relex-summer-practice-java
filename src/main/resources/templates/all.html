@@ -10,7 +10,7 @@
 </form>
 <br/>
 <form th:method="GET" th:action="@{/message/delete}">
-    <input type="submit" value="Очистить сообщения">
+    <input type="submit" value="Удалить все сообщения">
 </form>
 <h3>Сообщения:</h3>
 <div th:each="message : ${messages}">
