@@ -6,7 +6,7 @@ import ru.relex.relexsummerpractice.models.Message;
 
 import java.util.List;
 
-public interface MessageRepository extends JpaRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<Message, Long> {
     Message findByHeader(String header);
     @Query(value = "select * from messages order by id desc", nativeQuery = true)
     List<Message> selectAllOrderByIdDesc();
