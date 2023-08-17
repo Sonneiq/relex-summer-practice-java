@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@Log4j2
 public class MessageService {
-
     private final MessageRepository messageRepository;
-
     @Autowired
     public MessageService(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
@@ -42,6 +42,9 @@ public class MessageService {
     }
 
     public void export(HttpServletResponse response) {
+        log.info("Export method started");
+        long start = System.currentTimeMillis();
+
         String fileName = "messages.csv";
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
@@ -55,11 +58,15 @@ public class MessageService {
 
             writer.write(messageRepository.findAll());
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            log.warn(ioException.getMessage());
         } catch (CsvRequiredFieldEmptyException csvRequiredFieldEmptyException) {
-            csvRequiredFieldEmptyException.printStackTrace();
+            log.warn(csvRequiredFieldEmptyException.getMessage());
         } catch (CsvDataTypeMismatchException csvDataTypeMismatchException) {
-            csvDataTypeMismatchException.printStackTrace();
+            log.warn(csvDataTypeMismatchException.getMessage());
         }
+
+        long finish = System.currentTimeMillis();
+        long elapsed = finish - start;
+        log.info(String.format("Export method completed in %d ms", elapsed));
     }
 }

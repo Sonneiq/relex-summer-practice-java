@@ -22,6 +22,8 @@ dependencies {
 	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
 	implementation("org.apache.commons:commons-csv:1.9.0")
 	implementation("com.opencsv:opencsv:5.6")
+	compileOnly("org.projectlombok:lombok:1.18.20")
+	annotationProcessor("org.projectlombok:lombok:1.18.20")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
