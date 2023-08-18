@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.relex.relexsummerpractice.models.Message;
 import ru.relex.relexsummerpractice.services.MessageService;
 
@@ -22,15 +24,17 @@ public class MessageController {
     }
 
     @GetMapping()
-    public String showAll(@ModelAttribute("message") Message message, Model model) {
+    public ModelAndView showAll(@ModelAttribute("message") Message message, Model model) {
         model.addAttribute("messages", messageService.findAll());
-        return "all";
+        ModelAndView all = new ModelAndView("all");
+        return all;
     }
 
     @GetMapping("/{header}")
-    public String showOne(@PathVariable("header") String header, Model model) {
+    public ModelAndView showOne(@PathVariable("header") String header, Model model) {
         model.addAttribute("message", messageService.findByHeader(header));
-        return "show";
+        ModelAndView show = new ModelAndView("show");
+        return show;
     }
 
     @GetMapping("/export")
@@ -39,23 +43,28 @@ public class MessageController {
     }
 
     @GetMapping("/create")
-    public String createPage(@ModelAttribute("newMessage") Message message) {
-        return "create";
+    public ModelAndView createPage(@ModelAttribute("newMessage") Message message) {
+        ModelAndView create = new ModelAndView("create");
+        return create;
     }
 
 
     @PostMapping()
-    public String create(@ModelAttribute("newMessage") @Valid Message message, BindingResult bindingResult) {
+    public RedirectView create(@ModelAttribute("newMessage") @Valid Message message, BindingResult bindingResult) {
+        RedirectView redirect = new RedirectView();
         if(bindingResult.hasErrors()) {
-            return "redirect:/message/create";
+            redirect.setUrl("message/create");
+            return redirect;
         }
         messageService.createMessage(message);
-        return "redirect:/message";
+        redirect.setUrl("message");
+        return redirect;
     }
 
     @GetMapping("/delete")
-    public String delete() {
+    public RedirectView delete() {
         messageService.deleteAll();
-        return "redirect:/message";
+        RedirectView redirect = new RedirectView("/message");
+        return redirect;
     }
 }

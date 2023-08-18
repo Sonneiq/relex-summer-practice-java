@@ -6,8 +6,8 @@
 </head>
 <body>
     <p th:text="'id:' + ${message.getId()}">Id</p>
-    <h3 th:text="'Заголовок:' + ${message.getHeader()}">Header</h3>
-    <p th:text="'Текст сообщения:' + ${message.getMsg()}">Message</p>
+    <h3 th:text="'Заголовок: ' + ${message.getHeader()}">Header</h3>
+    <p th:text="'Текст сообщения: ' + ${message.getMsg()}">Message</p>
     <form th:method="GET" th:action="@{/message}">
         <input type="submit" value="Вернуться">
     </form>
